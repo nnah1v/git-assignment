@@ -1,5 +1,5 @@
 
-package raisetech.Management.Student;
+package raisetech.management.student;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class Application {
   @Autowired
   private StudentRepository studentRepository;
   @Autowired
-  private StudentsCoursesRepository studentsCoursesRepository;
+  private StudentCourseRepository studentCourseRepository;
 
 
 
@@ -30,7 +30,7 @@ public class Application {
   }
 
   @GetMapping("/studentCoursesList")
-  public List<StudentsCourses> getStudentsCoursesList(){
-    return  studentsCoursesRepository.search();
+  public List<StudentCourse> getStudentCoursesList(){
+    return studentCourseRepository.search();
   }
 }
