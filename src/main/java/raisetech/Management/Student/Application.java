@@ -15,7 +15,7 @@ public class Application {
   @Autowired
   private StudentRepository studentRepository;
   @Autowired
-  private  Students_coursesRepository studentsCoursesRepository;
+  private StudentsCoursesRepository studentsCoursesRepository;
 
 
 
@@ -30,7 +30,7 @@ public class Application {
   }
 
   @GetMapping("/studentCoursesList")
-  public List<Students_courses> getStudentsCoursesList(){
+  public List<StudentsCourses> getStudentsCoursesList(){
     return  studentsCoursesRepository.search();
   }
 }
