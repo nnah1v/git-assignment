@@ -26,31 +26,11 @@ public class StudentService {
 
   public List<Student> searchStudentList() {
 
-    //絞り込みをする。年齢が20-25の人のみを抽出する。
-    //抽出したリストをコントローラーに返す。
-    List<Student> students = studentRepository.search();
-    List<Student> result = new ArrayList<>();
-    for (Student student : students) {
-      if (student.getAge() >= 20 && student.getAge() <= 25) {
-        result.add(student);
-      }
-    }
-    return result;
+   return studentRepository.search();
   }
 
   public List<StudentCourse> searchStudentCoursesList() {
 
-    //絞り込み検索で「Java基礎」のコース情報のみを抽出する。
-    //抽出リストをコントローラーに返す。
-    List<StudentCourse> courses = studentCourseRepository.search();
-    List<StudentCourse> result = new ArrayList<>();
-    for (StudentCourse studentCourse : courses) {
-      if ("Java基礎".equals(studentCourse.getCourseName())) {
-        result.add(studentCourse);
-      }
-    }
-
-    return result;
-
+    return studentCourseRepository.search();
   }
 }
