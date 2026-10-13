@@ -93,38 +93,25 @@
     </select>
   </div>
 
-  <div class="form-row">
-    <label for="courseName">コース名：</label>
-    <select id="courseName"
-            th:field="*{studentCourses[0].courseName}"
-            required>
-      <option value="">選択してください</option>
-      <option value="Java基礎">Java基礎</option>
-      <option value="webデザイン">webデザイン</option>
-      <option value="Java応用">Java応用</option>
-      <option value="AWS">AWS</option>
-    </select>
-  </div>
+  <div th:each="course, stat : *{studentCourses}">
 
-  <div class="form-row">
-    <label for="startDate">開始日：</label>
-    <input type="date"
-           id="startDate"
-           th:field="*{studentCourses[0].startDate}"
-           required>
-  </div>
+    <div class="form-row">
+      <label>コース名：</label>
+      <select th:field="*{studentCourses[__${stat.index}__].courseName}"
+              required>
+        <option value="">選択してください</option>
+        <option value="Java基礎">Java基礎</option>
+        <option value="webデザイン">webデザイン</option>
+        <option value="Java応用">Java応用</option>
+        <option value="AWS">AWS</option>
+      </select>
+    </div>
 
-  <div class="form-row">
-    <label for="endDate">終了日：</label>
-    <input type="date"
-           id="endDate"
-           th:field="*{studentCourses[0].endDate}"
-           required>
   </div>
 
 
 
-<div>
+  <div>
   <button type="submit">登録</button>
 </div>
 </form>

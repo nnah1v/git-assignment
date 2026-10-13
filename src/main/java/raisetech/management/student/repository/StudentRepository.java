@@ -19,7 +19,7 @@ public interface StudentRepository {
   List<Student> search();
 
   @Insert("INSERT INTO students (name,furigana,nickname,email,city,age,gender,remark,is_deleted)"
-      + "VALUES (#{name}, #{furigana}, #{nickname}, #{email}, #{city}, #{age}, #{gender}, #{remark}, #{isDeleted})")
+      + "VALUES (#{name}, #{furigana}, #{nickname}, #{email}, #{city}, #{age}, #{gender}, #{remark}, false)")
   @Options(useGeneratedKeys = true, keyProperty = "id")
   void registerStudent(Student student);
 

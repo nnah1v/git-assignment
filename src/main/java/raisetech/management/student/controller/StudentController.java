@@ -1,6 +1,6 @@
 package raisetech.management.student.controller;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,10 +46,7 @@ public class StudentController {
 
     StudentDetail studentDetail = new StudentDetail();
 
-    List<StudentCourse> studentCourses = new ArrayList<>();
-    studentCourses.add(new StudentCourse());
-
-    studentDetail.setStudentCourses(studentCourses);
+    studentDetail.setStudentCourses(Arrays.asList(new StudentCourse()));
     model.addAttribute("studentDetail", studentDetail);
     return "registerStudent";
   }
@@ -63,16 +60,7 @@ public class StudentController {
 
     //新規受講生情報を登録する処理を実装する。
     //コース情報も一緒に登録できるように実装する。コースは単体で良い。
-    Student student = studentDetail.getStudent();
-    service.registerStudent(student);
-    List<StudentCourse> studentCourses = studentDetail.getStudentCourses();
-    for (StudentCourse studentCourse : studentCourses){
-      //登録した受講生のIDをコース情報に設定する
-      studentCourse.setStudentId((student.getId()));
-      //コース情報を登録する
-      service.registerStudentCourses(studentCourse);
-
-    }
+   service.registerStudent(studentDetail);
 
     return "redirect:/studentList";
 
