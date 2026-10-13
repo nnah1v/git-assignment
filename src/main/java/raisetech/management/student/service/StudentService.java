@@ -51,4 +51,22 @@ public class StudentService {
       studentCourseRepository.registerStudentCourse(studentCourse);
     }
   }
+
+  public StudentDetail searchStudent(int id){
+    Student student = studentRepository.searchStudent(id);
+
+    List<StudentCourse> studentCourses = studentCourseRepository.searchStudentCourses(id);
+
+    StudentDetail studentDetail = new StudentDetail();
+
+    studentDetail.setStudent(student);
+    studentDetail.setStudentCourses(studentCourses);
+
+    return studentDetail;
+
+  }
+
+  public void updateStudent(StudentDetail studentDetail){
+    studentRepository.updateStudent(studentDetail.getStudent());
+  }
 }

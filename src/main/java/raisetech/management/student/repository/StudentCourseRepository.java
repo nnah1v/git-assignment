@@ -23,6 +23,7 @@ public interface StudentCourseRepository {
   @Options(useGeneratedKeys = true, keyProperty = "id")
   void registerStudentCourse(StudentCourse studentCourse);
 
-
+  @Select("SELECT * FROM students_courses WHERE student_id = #{studentId}")
+  List<StudentCourse> searchStudentCourses(int studentId);
 
 }
