@@ -1,11 +1,14 @@
 package raisetech.management.student.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import raisetech.management.student.controller.converter.StudentConverter;
 import raisetech.management.student.data.Student;
 import raisetech.management.student.data.StudentCourse;
@@ -33,11 +36,47 @@ public class StudentController {
     return "studentList";
   }
 
-
-
   @GetMapping("/studentCoursesList")
   public List<StudentCourse> getStudentCoursesList(){
     return service.searchStudentCoursesList();
+  }
+
+  @GetMapping("/newStudent")
+  public String newStudent(Model model){
+
+    StudentDetail studentDetail = new StudentDetail();
+
+    List<StudentCourse> studentCourses = new ArrayList<>();
+    studentCourses.add(new StudentCourse());
+
+    studentDetail.setStudentCourses(studentCourses);
+    model.addAttribute("studentDetail", studentDetail);
+    return "registerStudent";
+  }
+
+  @PostMapping("/registerStudent")
+  public String registerStudent(@ModelAttribute StudentDetail studentDetail, BindingResult result){
+    if(result.hasErrors()){
+      return "registerStudent";
+    }
+
+
+    //新規受講生情報を登録する処理を実装する。
+    //コース情報も一緒に登録できるように実装する。コースは単体で良い。
+    Student student = studentDetail.getStudent();
+    service.registerStudent(student);
+    List<StudentCourse> studentCourses = studentDetail.getStudentCourses();
+    for (StudentCourse studentCourse : studentCourses){
+      //登録した受講生のIDをコース情報に設定する
+      studentCourse.setStudentId((student.getId()));
+      //コース情報を登録する
+      service.registerStudentCourses(studentCourse);
+
+    }
+
+    return "redirect:/studentList";
+
+
   }
 
 }

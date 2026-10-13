@@ -32,4 +32,13 @@ public class StudentService {
 
     return studentCourseRepository.search();
   }
+
+  public void registerStudent(Student student){
+    //repositoryにStudentを渡してDB登録する
+    studentRepository.registerStudent(student);
+  }
+
+  public void registerStudentCourses(StudentCourse studentCourse){
+    studentCourseRepository.registerStudentCourse(studentCourse);
+  }
 }
