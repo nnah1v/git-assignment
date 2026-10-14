@@ -35,13 +35,6 @@
         padding: 8px 24px;
     }
 
-    input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    vertical-align: middle;
-    margin-right: 8px;
-    cursor: pointer;
-}
   </style>
 </head>
 
@@ -118,6 +111,8 @@
     </select>
   </div>
 
+
+
   <!-- コース情報 -->
   <div th:each="course, stat : *{studentCourses}">
 
@@ -156,18 +151,28 @@
              readonly>
     </div>
 
+
+  </div>
+
+  <div class="form-row">
+    <label for="remark">備考：</label>
+    <input type="text"
+           id="remark"
+           th:field="*{student.remark}">
+  </div>
+
+  <div class="form-row">
+    <label for="isDeleted">キャンセル：</label>
+    <input type="checkbox"
+           id="isDeleted"
+           th:field="*{student.deleted}">
   </div>
 
   <div>
     <button type="submit">更新</button>
   </div>
 
-  <div class="form-row">
-    <label>キャンセル：</label>
-    <input type="checkbox"
-           th:field="*{student.deleted}">
-    <span>受講をキャンセルする</span>
-  </div>
+
 
 </form>
 

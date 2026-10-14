@@ -16,7 +16,7 @@ import raisetech.management.student.data.Student;
 @Mapper
 public interface StudentRepository {
 
-  @Select("SELECT * FROM students WHERE is_deleted = false")
+  @Select("SELECT * FROM students")
   List<Student> search();
 
   @Insert("INSERT INTO students (name,furigana,nickname,email,city,age,gender,remark,is_deleted)"
@@ -28,7 +28,7 @@ public interface StudentRepository {
   Student searchStudent(String id);
 
   @Update("UPDATE students SET name = #{name}, furigana = #{furigana}, nickname = #{nickname},"
-      + " email = #{email}, city = #{city}, age = #{age}, gender = #{gender}, remark = #{remark}, is_deleted = #{deleted} WHERE id = #{id}")
+      + " email = #{email}, city = #{city}, age = #{age}, gender = #{gender}, remark = #{remark}, is_deleted = #{isDeleted} WHERE id = #{id}")
   void updateStudent(Student student);
 
 }
