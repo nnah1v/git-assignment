@@ -33,7 +33,7 @@ public class StudentService {
 
   public List<StudentCourse> searchStudentCoursesList() {
 
-    return studentCourseRepository.search();
+    return studentCourseRepository.searchStudentCorsesList();
   }
 
   @Transactional
@@ -52,10 +52,10 @@ public class StudentService {
     }
   }
 
-  public StudentDetail searchStudent(int id){
+  public StudentDetail searchStudent(String id){
     Student student = studentRepository.searchStudent(id);
 
-    List<StudentCourse> studentCourses = studentCourseRepository.searchStudentCourses(id);
+    List<StudentCourse> studentCourses = studentCourseRepository.searchStudentCourses(student.getId());
 
     StudentDetail studentDetail = new StudentDetail();
 
@@ -66,7 +66,12 @@ public class StudentService {
 
   }
 
-  public void updateStudent(StudentDetail studentDetail){
+  @Transactional
+  public void updateStudent(StudentDetail studentDetail) {
     studentRepository.updateStudent(studentDetail.getStudent());
+
+    for (StudentCourse studentCourse : studentDetail.getStudentCourses()) {
+      studentCourseRepository.updateStudentCourse(studentCourse);
+    }
   }
 }

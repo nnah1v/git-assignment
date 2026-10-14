@@ -25,9 +25,10 @@ public interface StudentRepository {
   void registerStudent(Student student);
 
  @Select("SELECT * FROM students WHERE id = #{id}")
-  Student searchStudent(int id);
+  Student searchStudent(String id);
 
-  @Update("UPDATE students SET name = #{name}, furigana = #{furigana}, nickname = #{nickname}, email = #{email}, city = #{city}, age = #{age}, gender = #{gender} WHERE id = #{id}")
+  @Update("UPDATE students SET name = #{name}, furigana = #{furigana}, nickname = #{nickname},"
+      + " email = #{email}, city = #{city}, age = #{age}, gender = #{gender}, remark = #{remark}, is_deleted = #{isDeleted} WHERE id = #{id}")
   void updateStudent(Student student);
 
 }

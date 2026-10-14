@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import raisetech.management.student.controller.converter.StudentConverter;
 import raisetech.management.student.data.Student;
@@ -36,9 +37,11 @@ public class StudentController {
     return "studentList";
   }
 
-  @GetMapping("/studentCoursesList")
-  public List<StudentCourse> getStudentCoursesList(){
-    return service.searchStudentCoursesList();
+  @GetMapping("/student/{id}")
+  public String getStudent(@PathVariable String id, Model model){
+    StudentDetail studentDetail = service.searchStudent(id);
+    model.addAttribute("studentDetail", studentDetail);
+    return "updateStudent";
   }
 
   @GetMapping("/newStudent")
@@ -57,27 +60,17 @@ public class StudentController {
       return "registerStudent";
     }
 
-
-    //新規受講生情報を登録する処理を実装する。
-    //コース情報も一緒に登録できるように実装する。コースは単体で良い。
    service.registerStudent(studentDetail);
-
     return "redirect:/studentList";
   }
 
-  @GetMapping("/updateStudent")
-  public String updateStudent(int id, Model model){
-    StudentDetail studentDetail = service.searchStudent(id);
-    model.addAttribute("studentDetail", studentDetail);
-    return "updateStudent";
-
-  }
 
   @PostMapping("/updateStudent")
   public String updateStudent(@ModelAttribute StudentDetail studentDetail, BindingResult result) {
     if (result.hasErrors()) {
       return "updateStudent";
     }
+
     service.updateStudent(studentDetail);
     return "redirect:/studentList";
   }
