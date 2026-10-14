@@ -34,6 +34,14 @@
         margin-left: 140px;
         padding: 8px 24px;
     }
+
+    input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+    margin-right: 8px;
+    cursor: pointer;
+}
   </style>
 </head>
 
@@ -152,6 +160,13 @@
 
   <div>
     <button type="submit">更新</button>
+  </div>
+
+  <div class="form-row">
+    <label>キャンセル：</label>
+    <input type="checkbox"
+           th:field="*{student.deleted}">
+    <span>受講をキャンセルする</span>
   </div>
 
 </form>
