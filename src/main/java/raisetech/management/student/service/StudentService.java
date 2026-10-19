@@ -4,8 +4,10 @@ package raisetech.management.student.service;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 import raisetech.management.student.controller.converter.StudentConverter;
 import raisetech.management.student.data.Student;
 import raisetech.management.student.data.StudentCourse;
@@ -40,7 +42,7 @@ public class StudentService {
    */
   public List<StudentDetail> searchStudentList() {
     List<Student> studentList = studentRepository.search();
-    List<StudentCourse> studentCourseList = studentCourseRepository.searchStudentCorseList();
+    List<StudentCourse> studentCourseList = studentCourseRepository.searchStudentCourseList();
     return converter.convertStudentDetails(studentList, studentCourseList);
   }
 
@@ -89,6 +91,9 @@ public class StudentService {
    */
   public StudentDetail searchStudent(String id){
     Student student = studentRepository.searchStudent(id);
+    if (student == null){
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "指定された受講生は存在しません。");
+    }
     List<StudentCourse> studentCourse = studentCourseRepository.searchStudentCourse(student.getId());
     return new StudentDetail(student, studentCourse);
 
