@@ -21,8 +21,13 @@ public interface StudentCourseRepository {
    * @return 受講生コース一覧(全件)
    */
   @Select("SELECT * FROM students_courses")
-  List<StudentCourse> searchStudentCorsesList();
+  List<StudentCourse> searchStudentCorseList();
 
+  /**
+   * 受講生コース情報を登録します。　IDに関しては自動採番を行う。
+   *
+   * @param studentCourse 受講生コース情報
+   */
   @Insert("INSERT INTO students_courses (student_id, course_name, start_date, end_date) "
       + "VALUES (#{studentId}, #{courseName}, #{startDate}, #{endDate})")
   @Options(useGeneratedKeys = true, keyProperty = "id")
@@ -35,8 +40,14 @@ public interface StudentCourseRepository {
    * @return 受講生IDに紐づく受講生のコース情報
    */
   @Select("SELECT * FROM students_courses WHERE student_id = #{studentId}")
-  List<StudentCourse> searchStudentCourses(String studentId);
+  List<StudentCourse> searchStudentCourse(String studentId);
 
+
+  /**
+   * 受講生コース情報のコース名を更新します。
+   *
+   * @param studentCourse 受講生コース情報
+   */
   @Update("UPDATE students_courses SET course_name = #{courseName} WHERE id = #{id}")
   void updateStudentCourse(StudentCourse studentCourse);
 

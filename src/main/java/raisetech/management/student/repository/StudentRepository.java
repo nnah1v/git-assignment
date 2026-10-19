@@ -23,6 +23,13 @@ public interface StudentRepository {
   @Select("SELECT * FROM students")
   List<Student> search();
 
+  /**
+   * 受講生を新規登録します。
+   *IDに関しては自動採番を行う。
+   *
+   * @param student 受講生
+   */
+
   @Insert("INSERT INTO students (name,furigana,nickname,email,city,age,gender,remark,is_deleted)"
       + "VALUES (#{name}, #{furigana}, #{nickname}, #{email}, #{city}, #{age}, #{gender}, #{remark}, false)")
   @Options(useGeneratedKeys = true, keyProperty = "id")
@@ -37,7 +44,11 @@ public interface StudentRepository {
  @Select("SELECT * FROM students WHERE id = #{id}")
   Student searchStudent(String id);
 
-  @Update("UPDATE students SET name = #{name}, furigana = #{furigana}, nickname = #{nickname},"
+  /**
+   * 受講生を更新します。
+   * @param student 受講生
+   */
+ @Update("UPDATE students SET name = #{name}, furigana = #{furigana}, nickname = #{nickname},"
       + " email = #{email}, city = #{city}, age = #{age}, gender = #{gender}, remark = #{remark}, is_deleted = #{isDeleted} WHERE id = #{id}")
   void updateStudent(Student student);
 

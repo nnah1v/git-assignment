@@ -33,17 +33,24 @@ public class StudentService {
   }
 
   /**
-   * 受講生の一覧検索を行います。
+   * 受講生詳細の一覧検索を行います。
    * 全件検索を行うので、条件指定は行いません。
    *
-   * @return 受講生一覧(全件)
+   * @return 受講生詳細一覧(全件)
    */
   public List<StudentDetail> searchStudentList() {
     List<Student> studentList = studentRepository.search();
-    List<StudentCourse> studentCoursesList = studentCourseRepository.searchStudentCorsesList();
-    return converter.convertStudentDetails(studentList, studentCoursesList);
+    List<StudentCourse> studentCourseList = studentCourseRepository.searchStudentCorseList();
+    return converter.convertStudentDetails(studentList, studentCourseList);
   }
 
+  /**
+   * 受講生詳細の登録を行います。
+   * 受講生と受講生コース情報を個別に登録し、受講生コース情報には受講生情報を紐づける値とコース開始日、コース終了日を設定します。
+   *
+   * @param studentDetail 受講生詳細
+   * @return 登録情報を付与した受講生詳細
+   */
   @Transactional
   public StudentDetail registerStudent(StudentDetail studentDetail) {
 
@@ -52,13 +59,25 @@ public class StudentService {
     studentRepository.registerStudent(student);
 
     // コース情報を登録する
-    for (StudentCourse studentCourse : studentDetail.getStudentCourses()) {
-      studentCourse.setStudentId(student.getId());
-      studentCourse.setStartDate(LocalDate.now());
-      studentCourse.setEndDate(LocalDate.now().plusYears(1));
+    studentDetail.getStudentCourseList().forEach(studentCourse -> {
+      initStudentCourse(studentCourse, student);
       studentCourseRepository.registerStudentCourse(studentCourse);
-    }
+    });
     return studentDetail;
+  }
+
+  /**
+   * 受講生コース情報を登録する際の初期情報を設定する。
+   *
+   * @param studentCourse 受講生コース情報
+   * @param student 受講生
+   */
+  private static void initStudentCourse(StudentCourse studentCourse, Student student) {
+    LocalDate now = LocalDate.now();
+
+    studentCourse.setStudentId(student.getId());
+    studentCourse.setStartDate(now);
+    studentCourse.setEndDate(now.plusYears(1));
   }
 
   /**
@@ -70,16 +89,21 @@ public class StudentService {
    */
   public StudentDetail searchStudent(String id){
     Student student = studentRepository.searchStudent(id);
-    List<StudentCourse> studentCourses = studentCourseRepository.searchStudentCourses(student.getId());
-    return new StudentDetail(student, studentCourses);
+    List<StudentCourse> studentCourse = studentCourseRepository.searchStudentCourse(student.getId());
+    return new StudentDetail(student, studentCourse);
 
   }
 
+  /**
+   * 受講生詳細の更新を行います。
+   * 受講生と受講生コース情報をそれぞれ更新します。
+   *
+   * @param studentDetail 受講生詳細
+   */
   @Transactional
   public void updateStudent(StudentDetail studentDetail) {
     studentRepository.updateStudent(studentDetail.getStudent());
-    for (StudentCourse studentCourse : studentDetail.getStudentCourses()) {
-      studentCourseRepository.updateStudentCourse(studentCourse);
-    }
+    studentDetail.getStudentCourseList()
+        .forEach(studentCourse -> studentCourseRepository.updateStudentCourse(studentCourse));
   }
 }

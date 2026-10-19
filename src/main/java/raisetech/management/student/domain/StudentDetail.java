@@ -16,6 +16,6 @@ import raisetech.management.student.data.StudentCourse;
 public class StudentDetail {
 
   private Student student;
-  private List<StudentCourse> studentCourses;
+  private List<StudentCourse> studentCourseList;
 
 }
