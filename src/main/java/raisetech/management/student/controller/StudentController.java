@@ -68,7 +68,8 @@ public class StudentController {
   @PostMapping("/registerStudent")
   public ResponseEntity<StudentDetail> registerStudent(@RequestBody @Valid StudentDetail studentDetail){
    StudentDetail respomseStudentDetail = service.registerStudent(studentDetail);
-    return ResponseEntity.ok(respomseStudentDetail);
+    // 受講生の登録成功時に201 Createdを返す
+    return ResponseEntity.status(201).body(respomseStudentDetail);
   }
 
 
