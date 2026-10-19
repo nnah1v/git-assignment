@@ -9,13 +9,17 @@ import org.apache.ibatis.annotations.Update;
 import raisetech.management.student.data.StudentCourse;
 
 /**
- * 受講生のコース情報を扱うリポジトリ。
- *
+ * 受講生のコース情報を扱うRepositoryです。
  * 受講生に紐づくコース情報の検索や登録、更新、削除を行うクラス。
  */
 @Mapper
 public interface StudentCourseRepository {
-  
+
+  /**
+   * 受講生のコース情報の全件検索を行います。
+   *
+   * @return 受講生コース一覧(全件)
+   */
   @Select("SELECT * FROM students_courses")
   List<StudentCourse> searchStudentCorsesList();
 
@@ -24,6 +28,12 @@ public interface StudentCourseRepository {
   @Options(useGeneratedKeys = true, keyProperty = "id")
   void registerStudentCourse(StudentCourse studentCourse);
 
+  /**
+   * 受講生IDに紐づく受講生のコース情報を検索をします。
+   *
+   * @param studentId 受講生ID
+   * @return 受講生IDに紐づく受講生のコース情報
+   */
   @Select("SELECT * FROM students_courses WHERE student_id = #{studentId}")
   List<StudentCourse> searchStudentCourses(String studentId);
 
