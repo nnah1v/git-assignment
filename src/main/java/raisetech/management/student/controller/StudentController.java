@@ -1,19 +1,18 @@
 package raisetech.management.student.controller;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 import raisetech.management.student.domain.StudentDetail;
 import raisetech.management.student.service.StudentService;
 
@@ -55,7 +54,7 @@ public class StudentController {
    * @return 受講生詳細
    */
   @GetMapping("/student/{id}")
-  public StudentDetail getStudent(@PathVariable @Size(min = 1, max = 3) String id){
+  public StudentDetail getStudent(@PathVariable @NotBlank @Pattern(regexp = "^\\d+$") String id){
     return service.searchStudent(id);
   }
 
@@ -85,15 +84,5 @@ public class StudentController {
     return ResponseEntity.ok("更新処理が成功しました。");
   }
 
-
-  @ExceptionHandler(ResponseStatusException.class)
-  public ResponseEntity<String> handleNotFound(
-      ResponseStatusException e) {
-
-    // Serviceで設定したエラー理由をPostmanのBodyに返す
-    return ResponseEntity
-        .status(e.getStatusCode())
-        .body(e.getReason());
-  }
 
 }
