@@ -54,7 +54,8 @@ public class StudentController {
    * @return 受講生詳細
    */
   @GetMapping("/student/{id}")
-  public StudentDetail getStudent(@PathVariable @NotBlank @Pattern(regexp = "^\\d+$") String id){
+  public StudentDetail getStudent(
+      @PathVariable @NotBlank @Pattern(regexp = "^\\d+$") String id){
     return service.searchStudent(id);
   }
 
