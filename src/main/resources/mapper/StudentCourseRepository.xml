@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="raisetech.management.student.repository.StudentCourseRepository">
+
+  <!-- 受講生のコース情報の全件検索 -->
+  <select id="searchStudentCourseList" resultType="raisetech.management.student.data.StudentCourse">
+    SELECT * FROM students_courses
+  </select>
+
+  <!-- 受講生IDに紐づく受講生のコース情報を検索 -->
+  <select id="searchStudentCourse" resultType="raisetech.management.student.data.StudentCourse">
+    SELECT * FROM students_courses WHERE student_id = #{studentId}
+  </select>
+
+
+  <!-- 受講生コース情報を登録します。IDに関しては自動採番を行う -->
+  <insert id="registerStudentCourse" useGeneratedKeys ="true" keyProperty = "id">
+    INSERT INTO students_courses (student_id, course_name, start_date, end_date)
+    VALUES (#{studentId}, #{courseName}, #{startDate}, #{endDate})
+  </insert>
+
+
+  <!--  受講生コース情報のコース名を更新 -->
+  <update id="updateStudentCourse">
+    UPDATE students_courses
+    SET course_name = #{courseName}
+    WHERE id = #{id}
+  </update>
+
+
+</mapper>
