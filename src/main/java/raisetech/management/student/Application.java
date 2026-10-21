@@ -1,6 +1,8 @@
 
 package raisetech.management.student;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +14,7 @@ import raisetech.management.student.data.StudentCourse;
 import raisetech.management.student.repository.StudentCourseRepository;
 import raisetech.management.student.repository.StudentRepository;
 
+@OpenAPIDefinition(info = @Info(title = "受講生管理システム", version = "1.0.0", description = "受講生情報と受講生コース情報の検索・登録・更新を行うAPIです。"))
 @SpringBootApplication
 public class Application {
 

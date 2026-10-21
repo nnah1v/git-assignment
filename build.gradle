@@ -25,22 +25,26 @@ repositories {
 }
 
 dependencies {
-    //spring Boot
+    // spring Boot
 	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-    //Thymeleaf
+    // Thymeleaf
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    //便利機能、ユーティリティ
+    // 便利機能、ユーティリティ
     implementation 'org.apache.commons:commons-lang3:3.18.0'
     // Validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    //Lombok
+
+    // OpenAPI Generator （Swagger UI）
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:3.1.1'
+
+    // Lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    //MySQLドライバ
+    // MySQLドライバ
     runtimeOnly 'com.mysql:mysql-connector-j'
 
-    //MyBatis
+    // MyBatis
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:4.1.0'
 
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat-runtime'

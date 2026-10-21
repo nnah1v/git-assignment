@@ -107,6 +107,15 @@ public class StudentService {
    */
   @Transactional
   public void updateStudent(StudentDetail studentDetail) {
+
+    // 受講生情報を更新し、更新件数を取得
+    int count = studentRepository.updateStudent(studentDetail.getStudent());
+
+    // 更新対象が存在しない場合は404を返す
+    if (count == 0) {
+      throw new ResponseStatusException(
+          HttpStatus.NOT_FOUND, "対象の受講生が存在しません。");
+    }
     studentRepository.updateStudent(studentDetail.getStudent());
     studentDetail.getStudentCourseList()
         .forEach(studentCourse -> studentCourseRepository.updateStudentCourse(studentCourse));
