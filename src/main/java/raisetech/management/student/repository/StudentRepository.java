@@ -37,9 +37,8 @@ public interface StudentRepository {
    * 受講生を更新します。
    *
    * @param student 受講生
-   * @return 更新件数された受講生の件数
    */
-  int updateStudent(Student student);
+  void updateStudent(Student student);
 
 }
 
