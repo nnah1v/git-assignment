@@ -147,7 +147,6 @@ public class StudentController {
       responses = {
           @ApiResponse(responseCode = "200", description = "受講生詳細の取得成功"),
           @ApiResponse(responseCode = "400", description = "受講生IDの入力値が不正"),
-          @ApiResponse(responseCode = "404", description = "対象の受講生が存在しません。"),
           @ApiResponse(responseCode = "500", description = "サーバー内部エラー")
       })
 
