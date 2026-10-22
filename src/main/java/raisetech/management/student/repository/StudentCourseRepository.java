@@ -5,8 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import raisetech.management.student.data.StudentCourse;
 
 /**
- * 受講生のコース情報を扱うRepositoryです。
- * 受講生に紐づくコース情報の検索や登録、更新、削除を行うクラス。
+ * 受講生のコース情報を扱うRepositoryです。 受講生に紐づくコース情報の検索や登録、更新、削除を行うクラス。
  */
 @Mapper
 public interface StudentCourseRepository {
