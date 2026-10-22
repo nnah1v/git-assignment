@@ -49,15 +49,15 @@ public class StudentController {
    * @return 受講生詳細一覧(全件)
    */
   @Operation(
-      //APIタイトル
+      // APIタイトル
       summary = "一覧検索",
-      //APIの詳しい説明
+      // APIの詳しい説明
       description = "受講生の一覧を検索します。",
-      //APIを識別する名前
+      // APIを識別する名前
       operationId = "getStudentList",
-      //Swagger UIでの分類
+      // Swagger UIでの分類
       tags = {"受講生管理"},
-      //HTTPレスポンスの説明
+      // HTTPレスポンスの説明
       responses = {
           @ApiResponse(responseCode = "200", description = "受講生一覧の取得成功", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = StudentDetail.class)))),
           @ApiResponse(responseCode = "500", description = "サーバー内部エラー", content = @Content(mediaType = "text/plain", schema = @Schema(type = "string")))})
@@ -73,18 +73,18 @@ public class StudentController {
    * @return 受講生詳細
    */
   @Operation(
-      //APIのタイトル
+      // APIのタイトル
       summary = "受講生検索",
-      //IDを指定して検索するAPIの説明
+      // IDを指定して検索するAPIの説明
       description = "受講生IDを指定して受講生詳細を取得します。",
-      //APIを識別する名前
+      // APIを識別する名前
       operationId = "getStudent",
-      //APIの分類
+      // APIの分類
       tags = {"受講生管理"},
-      //入力パラメーターの説明
+      // 入力パラメーターの説明
       parameters = {
           @Parameter(name = "id", description = "受講生ID", required = true, example = "1")},
-      //HTTPレスポンスの説明
+      // HTTPレスポンスの説明
       responses = {
           @ApiResponse(responseCode = "200", description = "受講生詳細の取得成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = StudentDetail.class))),
           @ApiResponse(responseCode = "400", description = "受講生IDの入力値が不正", content = @Content(mediaType = "text/plain", schema = @Schema(type = "string"))),
@@ -102,19 +102,19 @@ public class StudentController {
    * @return 実行結果
    */
   @Operation(
-      //APIのタイトル
+      // APIのタイトル
       summary = "受講生登録",
-      //登録APIの詳しい説明
+      // 登録APIの詳しい説明
       description = "受講生を新規登録します。受講生IDと受講コースIDは自動採番されます。受講開始日は登録日、終了日は登録日の1年後に自動設定されます。",
-      //APIを識別する名前
+      // APIを識別する名前
       operationId = "registerStudent",
-      //APIの分類
+      // APIの分類
       tags = {"受講生管理"},
 
-      //リクエスト本文の説明
+      // リクエスト本文の説明
       requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "登録する受講生詳細", required = true, content = @Content(mediaType = "application/json", schema = @Schema(implementation = StudentDetail.class))),
 
-      //HTTPレスポンスの説明
+      // HTTPレスポンスの説明
       responses = {
           @ApiResponse(responseCode = "201", description = "受講生の登録成功", content = @Content(mediaType = "application/json", schema = @Schema(implementation = StudentDetail.class))),
           @ApiResponse(responseCode = "400", description = "登録内容の入力値が不正", content = @Content(mediaType = "text/plain", schema = @Schema(type = "string"))),
@@ -135,17 +135,17 @@ public class StudentController {
    * @return 実行結果
    */
   @Operation(
-      //APIのタイトル
+      // APIのタイトル
       summary = "受講生更新",
-      //更新処理と論理削除の説明
+      // 更新処理と論理削除の説明
       description = "受講生詳細の更新を行います。キャンセルフラグの更新もここで行います。(論理削除)",
-      //APIを識別する名前
+      // APIを識別する名前
       operationId = "updateStudent",
-      //APIの分類
+      // APIの分類
       tags = {"受講生管理"},
-      //リクエスト本文の説明
+      // リクエスト本文の説明
       requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "更新する受講生詳細", required = true, content = @Content(mediaType = "application/json", schema = @Schema(implementation = StudentDetail.class))),
-      //HTTPレスポンスの説明
+      // HTTPレスポンスの説明
       responses = {
           @ApiResponse(responseCode = "200", description = "受講生詳細の更新成功", content = @Content(mediaType = "text/plain", schema = @Schema(type = "string", example = "更新処理が成功しました。"))),
           @ApiResponse(responseCode = "400", description = "更新内容の入力値が不正", content = @Content(mediaType = "text/plain", schema = @Schema(type = "string"))),
